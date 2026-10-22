@@ -1,6 +1,6 @@
 {
   "name": "my-command-center",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Command Center — a personal dashboard for your lists, money, documents, notes and calendar, with Claude built in",
   "main": "electron/main.js",
   "private": true,
