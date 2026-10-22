@@ -1,0 +1,62 @@
+.cc-env {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cc-env > * {
+  position: absolute;
+}
+
+/* 1 — base gradient */
+.cc-env-base {
+  inset: 0;
+  background: linear-gradient(180deg, #05070A 0%, #080B0F 46%, #0A0D11 100%);
+}
+
+/* 2 — the photograph. The only imagery in the entire product. */
+.cc-env-mountain {
+  right: -6%;
+  bottom: -8%;
+  width: min(112vw, 150vh);
+  height: auto;
+  opacity: 0.62;
+  filter: grayscale(1) contrast(1.06) brightness(0.92);
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(78% 78% at 68% 78%, #000 42%, transparent 88%);
+  mask-image: radial-gradient(78% 78% at 68% 78%, #000 42%, transparent 88%);
+  user-select: none;
+}
+
+/* 3 — fog glow */
+.cc-env-fog {
+  left: -15%;
+  right: -15%;
+  bottom: 2%;
+  height: 56%;
+  background: radial-gradient(60% 60% at 46% 62%, rgba(214, 223, 233, 0.1), transparent 72%);
+  filter: blur(40px);
+}
+
+.cc-env-fog.is-drifting {
+  animation: cc-drift 86s ease-in-out infinite;
+}
+
+/* 4 — vignette */
+.cc-env-vignette {
+  inset: 0;
+  background: radial-gradient(90% 70% at 50% 30%, transparent 30%, rgba(4, 6, 9, 0.55) 100%);
+}
+
+/* 5 — legibility scrim */
+.cc-env-scrim {
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 7, 10, 0.72) 0%,
+    rgba(5, 7, 10, 0.25) 34%,
+    rgba(5, 7, 10, 0.45) 100%
+  );
+}

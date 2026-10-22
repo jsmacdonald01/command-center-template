@@ -1,0 +1,22 @@
+node_modules/
+dist/
+dist-renderer/
+*.log
+.DS_Store
+Thumbs.db
+
+# Secrets. Never commit these — each person makes their own.
+electron/services/google-oauth-client.json
+*.env
+.env*
+
+# Personal data never lives in this folder, but in case anything is ever
+# copied here by mistake, keep it out of git.
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+Backups/
+
+# Claude Code's own settings and history belong in the home folder.
+/.claude/
+/.claude.json*

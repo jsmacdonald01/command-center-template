@@ -1,0 +1,92 @@
+.cc-statusbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px clamp(24px, 4vw, 56px);
+  background: linear-gradient(180deg, rgba(10, 13, 17, 0.72), transparent);
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+.cc-statusbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cc-statusbar-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: var(--cc-r-pill);
+  background: #CBD5E1;
+  box-shadow: 0 0 12px rgba(203, 213, 225, 0.8);
+  flex: none;
+}
+
+.cc-statusbar-name {
+  font-family: var(--cc-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--cc-text-body);
+}
+
+.cc-statusbar-meta {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 28px);
+  font-family: var(--cc-mono);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 236, 241, 0.42);
+  font-variant-numeric: tabular-nums;
+}
+
+.cc-statusbar-clock {
+  color: rgba(232, 236, 241, 0.78);
+}
+
+/* The bar itself ignores the mouse so it never blocks content beneath;
+   the sync control opts back in. */
+.cc-statusbar-sync {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  transition: color var(--cc-fade);
+}
+
+.cc-statusbar-sync:hover:not(:disabled) {
+  color: var(--cc-text-body);
+}
+
+.cc-statusbar-sync:disabled {
+  cursor: default;
+}
+
+.cc-statusbar-syncdot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--cc-r-pill);
+  background: var(--cc-steady);
+  flex: none;
+}
+
+@media (max-width: 860px) {
+  .cc-statusbar-meta > span:not(.cc-statusbar-clock):not(.cc-statusbar-sync) {
+    display: none;
+  }
+}

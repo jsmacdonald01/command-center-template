@@ -1,0 +1,22 @@
+/* Base .cc-overlay / .cc-overlay-panel / .cc-overlay-head live in
+   styles/common.css — shared with the AI overlay. */
+
+.cc-markets-panel {
+  max-width: 1180px;
+  height: 82vh;
+}
+
+.cc-markets-symbols {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.cc-markets-frame {
+  flex: 1;
+  width: 100%;
+  border: none;
+  border-radius: var(--cc-r-widget);
+  background: rgba(0, 0, 0, 0.3);
+  min-height: 0;
+}

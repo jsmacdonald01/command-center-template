@@ -1,0 +1,128 @@
+.cc-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px 22px;
+}
+
+.cc-setting {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.cc-key-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  margin-top: 2px;
+}
+
+.cc-key-input {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--cc-r-pill);
+  padding: 7px 12px;
+  font-family: var(--cc-mono);
+  font-size: 11px;
+  color: var(--cc-text-body);
+  outline: none;
+}
+
+.cc-key-input:focus {
+  border-color: rgba(226, 232, 240, 0.45);
+}
+
+.cc-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* Ambient motion opt-out, mirroring prefers-reduced-motion. */
+.cc-no-ambient .cc-env-fog,
+.cc-no-ambient .cc-sphere-aura,
+.cc-no-ambient .cc-sphere-ring {
+  animation: none;
+}
+
+.cc-setting-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Pairing code — big enough to read off the screen while typing it into
+   a phone, and monospaced so digits don't blur together. */
+.cc-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cc-pair-code {
+  font-size: 26px;
+  letter-spacing: 0.22em;
+  color: var(--cc-bright);
+}
+
+/* Google: read and write shown separately, because "connected" was the
+   misleading word — it stayed true while every write was refused. */
+.cc-google-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 9px;
+}
+
+.cc-google-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* One row of names; the chosen one opens underneath. A dot marks the
+   ones already set up. */
+.cc-settings-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cc-settings-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid var(--cc-inset-border);
+  border-radius: var(--cc-r-pill);
+  background: transparent;
+  color: var(--cc-text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: color var(--cc-fade), border-color var(--cc-fade);
+}
+
+.cc-settings-tab:hover,
+.cc-settings-tab.is-open {
+  color: var(--cc-bright);
+  border-color: var(--cc-text-faint);
+}
+
+.cc-settings-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cc-text-secondary);
+}
+
+.cc-settings-tabs + .cc-settings-grid {
+  margin-top: 12px;
+  grid-template-columns: minmax(0, 520px);
+}

@@ -1,0 +1,130 @@
+.cc-peek {
+  position: relative;
+}
+
+/* Unread count. Red is otherwise reserved for genuine deadlines, but an
+   unread badge is the one place the convention is worth more than the
+   rule — it only appears when there is actually something waiting. */
+.cc-peek-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  margin-left: 7px;
+  padding: 0 4px;
+  border-radius: var(--cc-r-pill);
+  background: #D1454E;
+  color: #FFFFFF;
+  font-family: var(--cc-mono);
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 1;
+  box-shadow: 0 0 10px rgba(209, 69, 78, 0.5);
+}
+
+/* Drops below the button, right-aligned so it never leaves the window. */
+.cc-peek-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 12;
+  width: min(360px, 80vw);
+  max-height: 60vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border-radius: var(--cc-r-widget);
+  background: linear-gradient(180deg, rgba(24, 28, 34, 0.97), rgba(18, 22, 28, 0.97));
+  backdrop-filter: blur(30px) saturate(118%);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  animation: cc-rise 200ms ease;
+}
+
+.cc-peek-empty {
+  padding: 14px 10px;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--cc-text-faint);
+  text-align: center;
+}
+
+.cc-peek-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: var(--cc-r-chip);
+  text-align: left;
+  transition: background var(--cc-fade);
+}
+
+.cc-peek-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.cc-peek-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cc-peek-sender {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--cc-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Unread is carried by weight and brightness — no second accent colour. */
+.cc-peek-item.is-unread .cc-peek-sender {
+  color: var(--cc-bright);
+  font-weight: 400;
+}
+
+.cc-peek-age {
+  flex: none;
+  font-size: 10px;
+  color: var(--cc-text-faint);
+}
+
+.cc-peek-subject {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cc-peek-item.is-unread .cc-peek-subject {
+  color: var(--cc-bright);
+}
+
+.cc-peek-all {
+  margin-top: 4px;
+  padding: 9px 10px;
+  border-top: 1px solid var(--cc-divider);
+  border-radius: 0 0 var(--cc-r-chip) var(--cc-r-chip);
+  font-family: var(--cc-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cc-text-faint);
+  text-align: center;
+  transition: color var(--cc-fade), background var(--cc-fade);
+}
+
+.cc-peek-all:hover {
+  color: var(--cc-text-body);
+  background: rgba(255, 255, 255, 0.05);
+}

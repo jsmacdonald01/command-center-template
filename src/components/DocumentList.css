@@ -1,0 +1,93 @@
+.cc-doc {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cc-doc:last-of-type {
+  border-bottom: none;
+}
+
+.cc-doc-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  text-align: left;
+}
+
+.cc-doc-main:disabled {
+  cursor: default;
+}
+
+.cc-doc-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cc-doc-main:not(:disabled):hover .cc-doc-name {
+  color: var(--cc-bright);
+}
+
+.cc-doc-meta {
+  flex: none;
+  font-family: var(--cc-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cc-text-faint);
+}
+
+.cc-doc + .cc-pill {
+  margin-top: 6px;
+}
+
+.cc-doc .cc-row-remove.is-always {
+  opacity: 1;
+}
+
+/* Rename. The pencil matches Future Builds' — quiet until the row is
+   hovered, so a list of documents reads as a list of documents. */
+.cc-doc-rename-btn {
+  flex: none;
+  border: none;
+  background: transparent;
+  color: var(--cc-text-faint);
+  font-size: 11px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 120ms ease, color 120ms ease;
+}
+
+.cc-doc:hover .cc-doc-rename-btn {
+  opacity: 1;
+}
+
+.cc-doc-rename-btn:hover {
+  color: var(--cc-text-body);
+}
+
+/* Takes the row the name button had, so nothing shifts on the way in. */
+.cc-doc-rename {
+  flex: 1;
+  min-width: 0;
+  background: var(--cc-inset);
+  border: 1px solid var(--cc-hover-border);
+  border-radius: var(--cc-r-pill);
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+  outline: none;
+}

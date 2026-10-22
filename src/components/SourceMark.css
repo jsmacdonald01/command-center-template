@@ -1,0 +1,38 @@
+/* A brand mark in a panel label.
+
+   The design system allows grey, red and green, and a logo is none of
+   those — a page of full-colour marks reads as a bookmarks bar, which is
+   the opposite of what this app is. So a mark sits desaturated with the
+   rest of the label and takes its colour back when you look at the panel.
+   Recognisable by shape at rest, itself when it matters. */
+
+.cc-source-mark {
+  flex: none;
+  border-radius: 3px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.7;
+  transition: filter var(--cc-fade), opacity var(--cc-fade);
+}
+
+.cc-panel:hover .cc-source-mark,
+.cc-widget:hover .cc-source-mark {
+  filter: none;
+  opacity: 1;
+}
+
+/* A mark inside a settings label. `.cc-field-label` is a plain block —
+   defined in School.css and global, like everything else — so the row has
+   to be made a flex line here rather than there. Changing it at the source
+   would move every field label in the app. */
+.cc-field-label:has(.cc-source-mark) {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* In a pill, where the text is already centred. */
+.cc-pill .cc-source-mark {
+  margin-right: 6px;
+  vertical-align: -2px;
+}

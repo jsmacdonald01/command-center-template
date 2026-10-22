@@ -1,0 +1,115 @@
+/* The Business page: three even columns, one screen tall. Every box
+   scrolls its own contents, so a long client list never pushes the page
+   taller. */
+
+.cc-business-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--cc-card-gap);
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.cc-business-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cc-card-gap);
+  min-width: 0;
+  min-height: 0;
+}
+
+.cc-business-col > .cc-panel {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* The company card keeps its own height; the client list takes the rest. */
+.cc-business-col > .cc-company {
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+@media (max-width: 1100px) {
+  .cc-business-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cc-business-col > .cc-panel {
+    flex: none;
+    min-height: 220px;
+  }
+}
+
+/* The business name is the page title, editable in place. */
+.cc-business-title .cc-editable {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+}
+
+/* ---------------------------- company card --------------------------- */
+
+.cc-company {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+}
+
+.cc-company-logo {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  border: 1px dashed var(--cc-inset-border);
+  background: transparent;
+  color: var(--cc-text-faint);
+  font-size: 11px;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--cc-fade), color var(--cc-fade);
+}
+
+.cc-company-logo:hover {
+  border-color: var(--cc-text-faint);
+  color: var(--cc-text-body);
+}
+
+.cc-company-logo.is-set {
+  border-style: solid;
+}
+
+.cc-company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cc-company-facts {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+
+.cc-company-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.cc-company-value {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+}
+
+.cc-company-value .cc-editable {
+  text-align: left;
+}

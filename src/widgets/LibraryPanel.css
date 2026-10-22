@@ -1,0 +1,193 @@
+/* ------------------------------ Library ------------------------------
+
+   Every document the owner has, and a search box that reads inside them. Built to
+   the same rules as the panels around it: one hairline between rows, the
+   name the only thing that looks clickable, and the place a document lives
+   set quietly beside it rather than competing with its name.
+
+   The panel holds its own height and scrolls its list, for the reason the
+   original app learned the hard way — a panel that grows with its
+   contents moves everything under it. This one will hold hundreds. */
+.cc-lib {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cc-lib-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* Sits inside the panel rather than floating above the list, so it reads as
+   part of the library and not as the page's own search. */
+.cc-lib-searchbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 0 12px;
+  background: var(--cc-inset);
+  border: 1px solid var(--cc-inset-border);
+  border-radius: 999px;
+}
+
+.cc-lib-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--cc-text-body);
+  padding: 9px 0;
+}
+
+.cc-lib-input::placeholder {
+  color: var(--cc-text-faint);
+}
+
+/* One line of truth about the pile, including what cannot be searched. */
+.cc-lib-summary {
+  font-size: 11px;
+  color: var(--cc-text-muted);
+  margin: 8px 0 2px;
+  min-height: 14px;
+}
+
+.cc-lib-busy {
+  color: var(--cc-text-secondary);
+}
+
+.cc-lib-said {
+  color: var(--cc-text-secondary);
+}
+
+.cc-lib-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.cc-lib-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  min-width: 0;
+}
+
+.cc-lib-row:last-of-type {
+  border-bottom: none;
+}
+
+/* A document with no words in it is still their document and still opens —
+   it just cannot answer a question, so it sits back rather than hiding. */
+.cc-lib-row.is-quiet .cc-lib-name {
+  color: var(--cc-text-muted);
+}
+
+.cc-lib-name {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 300;
+  text-align: left;
+  color: var(--cc-text-body);
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1 1 auto;
+  border-bottom: 1px solid transparent;
+  transition: border-color 120ms ease;
+}
+
+.cc-lib-name:hover {
+  border-bottom-color: var(--cc-text-faint);
+}
+
+.cc-lib-where {
+  flex: none;
+  font-family: var(--cc-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cc-text-faint);
+}
+
+.cc-lib-state {
+  flex: none;
+  font-size: 10px;
+  color: var(--cc-text-faint);
+}
+
+/* A hit is two lines on purpose: which document, then what it actually
+   says. The words around the match are the part that makes an answer
+   checkable, so they get their own line and full width. */
+.cc-lib-hit {
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cc-lib-hit:last-of-type {
+  border-bottom: none;
+}
+
+.cc-lib-hit-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cc-lib-snippet {
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--cc-text-secondary);
+}
+
+/* Rename in the library. Same gesture as in documents boxes —
+   quiet until the row is hovered. */
+.cc-lib-rename-btn {
+  flex: none;
+  border: none;
+  background: transparent;
+  color: var(--cc-text-faint);
+  font-size: 11px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 120ms ease, color 120ms ease;
+}
+
+.cc-lib-row:hover .cc-lib-rename-btn {
+  opacity: 1;
+}
+
+.cc-lib-rename-btn:hover {
+  color: var(--cc-text-body);
+}
+
+.cc-lib-rename {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: var(--cc-inset);
+  border: 1px solid var(--cc-hover-border);
+  border-radius: var(--cc-r-pill);
+  padding: 4px 9px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+  outline: none;
+}

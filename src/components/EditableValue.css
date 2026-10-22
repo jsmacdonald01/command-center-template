@@ -1,0 +1,38 @@
+/* Editing is invisible until used — the read view must stay as calm as
+   any other text in the environment. */
+
+.cc-editable {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
+  padding: 1px 0;
+  margin: 0;
+  text-align: inherit;
+  cursor: text;
+  border-radius: 0;
+  transition: border-color var(--cc-fade), color var(--cc-fade);
+  max-width: 100%;
+}
+
+.cc-editable:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.28);
+}
+
+.cc-editable--input {
+  border-bottom-color: rgba(226, 232, 240, 0.6);
+  outline: none;
+  width: 100%;
+  min-width: 60px;
+}
+
+.cc-editable--input:focus {
+  border-bottom-color: rgba(226, 232, 240, 0.9);
+}
+
+/* Right-aligned numeric cells keep their alignment while editing. */
+.cc-editable.is-right {
+  text-align: right;
+}

@@ -1,0 +1,72 @@
+.cc-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cc-panel--primary {
+  background: var(--cc-glass-primary);
+  backdrop-filter: var(--cc-glass-primary-blur);
+  border: 1px solid var(--cc-glass-primary-border);
+  border-radius: var(--cc-r-panel);
+  padding: var(--cc-pad-primary);
+  gap: var(--cc-gap-primary);
+  box-shadow: var(--cc-shadow-panel);
+}
+
+.cc-panel--secondary {
+  background: var(--cc-glass-secondary);
+  backdrop-filter: var(--cc-glass-secondary-blur);
+  border: 1px solid var(--cc-glass-secondary-border);
+  border-radius: var(--cc-r-widget);
+  padding: var(--cc-pad-secondary);
+  gap: var(--cc-gap-secondary);
+}
+
+.cc-panel--dormant {
+  background: var(--cc-dormant-fill);
+  border: 1px dashed var(--cc-dormant-border);
+  border-radius: var(--cc-r-widget);
+  padding: 14px 16px;
+  gap: 6px;
+  transition: background var(--cc-fade), border-color var(--cc-fade);
+}
+
+.cc-panel--critical {
+  background: var(--cc-critical-fill);
+  border: 1px solid var(--cc-critical-border);
+  border-radius: var(--cc-r-row);
+  padding: 16px 18px;
+  gap: 10px;
+}
+
+.cc-panel--accent {
+  background: var(--cc-accent-fill);
+  border: 1px solid transparent;
+  border-radius: 16px;
+  padding: 20px;
+  gap: 16px;
+}
+
+.cc-panel-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cc-text-faint);
+}
+
+.cc-panel-label-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--cc-r-pill);
+  background: #CBD5E1;
+  flex: none;
+}
+
+/* Hover raises background ~.04 alpha and border ~.12.
+   No transforms, no scaling, no glow — anywhere in the product. */
+.cc-panel--dormant:hover {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 255, 255, 0.3);
+}

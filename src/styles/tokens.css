@@ -1,0 +1,257 @@
+/* Design tokens — the single source of truth for the Command Center
+   visual system. Every value here comes from the approved design handoff.
+   Components reference these variables; they never hardcode colors,
+   radii, blurs, or type specs. */
+
+:root {
+  /* ---- palette ---- */
+  --cc-void: #05070A;          /* top of the sky gradient */
+  --cc-charcoal: #0B0E12;      /* base environment */
+  --cc-storm: #2B323C;         /* mid-tone */
+  --cc-silver: #8B97A6;        /* muted accents */
+  --cc-cloud: #E8ECF1;         /* primary text */
+  --cc-bright: #F4F7FA;        /* headlines */
+  --cc-critical: #9D2C33;      /* critical only — at most one per screen */
+  --cc-critical-text: #F2B8B8;
+  --cc-steady: #9AE6B4;        /* ok / positive status */
+  --cc-panel-ink: #12161C;     /* text on light pills */
+
+  /* ---- text opacity ladder (on --cc-cloud) ----
+     Never below .4 — earlier drafts failed contrast review. */
+  --cc-text-headline: rgba(232, 236, 241, 1);
+  --cc-text-body: rgba(232, 236, 241, 0.9);
+  --cc-text-secondary: rgba(232, 236, 241, 0.6);
+  --cc-text-muted: rgba(232, 236, 241, 0.5);
+  --cc-text-faint: rgba(232, 236, 241, 0.4);
+
+  /* ---- surfaces ---- */
+  --cc-glass-primary: linear-gradient(180deg, rgba(255, 255, 255, 0.062), rgba(255, 255, 255, 0.022));
+  --cc-glass-primary-border: rgba(255, 255, 255, 0.095);
+  --cc-glass-primary-blur: blur(30px) saturate(118%);
+
+  --cc-glass-secondary: rgba(255, 255, 255, 0.042);
+  --cc-glass-secondary-border: rgba(255, 255, 255, 0.08);
+  --cc-glass-secondary-blur: blur(24px) saturate(112%);
+
+  --cc-dormant-fill: rgba(255, 255, 255, 0.015);
+  --cc-dormant-border: rgba(255, 255, 255, 0.16);
+
+  --cc-critical-fill: rgba(153, 27, 27, 0.16);
+  --cc-critical-border: rgba(220, 90, 90, 0.34);
+
+  --cc-inset: rgba(255, 255, 255, 0.035);
+  --cc-inset-border: rgba(255, 255, 255, 0.08);
+  --cc-accent-fill: rgba(203, 213, 225, 0.06);
+  --cc-divider: rgba(255, 255, 255, 0.07);
+
+  /* hover: raise background ~.04 alpha, border ~.12. No transforms, no glow. */
+  --cc-hover-fill: rgba(255, 255, 255, 0.09);
+  --cc-hover-border: rgba(255, 255, 255, 0.22);
+
+  /* ---- radii ---- */
+  --cc-r-check: 4px;
+  --cc-r-chip: 10px;
+  --cc-r-row: 14px;
+  --cc-r-widget: 18px;
+  --cc-r-panel: 22px;
+  --cc-r-overlay: 24px;
+  --cc-r-pill: 999px;
+
+  /* ---- shadows ---- */
+  --cc-shadow-panel: 0 30px 80px rgba(0, 0, 0, 0.35);
+  --cc-shadow-overlay: 0 40px 120px rgba(0, 0, 0, 0.6);
+  --cc-shadow-sphere: 0 24px 60px rgba(0, 0, 0, 0.5);
+
+  /* ---- type ---- */
+  --cc-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --cc-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  /* ---- rhythm ----
+     Deliberately tight. Panels should feel compact and evenly spaced;
+     a section that scrolls is a section that has grown too tall. */
+  --cc-section-gap: clamp(14px, 1.6vh, 18px);
+  --cc-card-gap: 12px;
+  --cc-section-pad-y: clamp(64px, 7vh, 78px);
+  --cc-section-pad-x: clamp(24px, 4vw, 56px);
+  --cc-section-pad-bottom: clamp(64px, 7vh, 78px);
+  --cc-max-width: 1560px;
+
+  /* ---- panel density ---- */
+  --cc-pad-primary: clamp(16px, 1.5vw, 22px);
+  --cc-pad-secondary: 16px;
+  --cc-gap-primary: 14px;
+  --cc-gap-secondary: 11px;
+
+  /* ---- motion ----
+     The entire product has four motions. Anything more breaks the calm. */
+  --cc-reveal: 350ms ease;
+  --cc-fade: 200ms ease;
+}
+
+/* ============================ reset ============================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--cc-void);
+  color: var(--cc-cloud);
+  font-family: var(--cc-sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+:focus-visible {
+  outline: 1px solid rgba(226, 232, 240, 0.55);
+  outline-offset: 2px;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+input,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+/* ========================= type helpers ========================= */
+
+.cc-label {
+  font-family: var(--cc-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.cc-eyebrow {
+  font-family: var(--cc-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.cc-mono {
+  font-family: var(--cc-mono);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.cc-section-title {
+  font-weight: 200;
+  font-size: clamp(34px, 3.2vw, 46px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--cc-bright);
+  margin: 0;
+}
+
+.cc-headline {
+  font-weight: 200;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--cc-bright);
+  margin: 0;
+}
+
+.cc-stat {
+  font-weight: 200;
+  letter-spacing: -0.02em;
+  color: var(--cc-bright);
+  font-variant-numeric: tabular-nums;
+}
+
+.cc-lede {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 74ch;
+  text-wrap: pretty;
+  color: rgba(232, 236, 241, 0.8);
+  margin: 0;
+}
+
+.cc-body {
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.cc-small {
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* ========================== animations ==========================
+   1. fog drift (86s)  2. sphere rotation (26s) + ring (60s)
+   3. sphere breathing (7s)  4. reveals (350-400ms)                */
+
+@keyframes cc-drift {
+  0%   { transform: translate3d(-3%, 0, 0); }
+  50%  { transform: translate3d(3%, -1.5%, 0); }
+  100% { transform: translate3d(-3%, 0, 0); }
+}
+
+@keyframes cc-breathe {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 0.85; transform: scale(1.045); }
+}
+
+@keyframes cc-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes cc-spin-reverse {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes cc-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cc-wave {
+  0%, 100% { transform: scaleY(0.18); }
+  50%      { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,172 @@
+/* The agent — what the plain chat box did not need.
+   Everything here is about showing work: which tools ran, what is waiting
+   on approval, and what the month has cost. */
+
+.cc-atlas-trace {
+  margin-top: 4px;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--cc-text-faint);
+}
+
+.cc-atlas-spend {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--cc-text-faint);
+  margin-right: 4px;
+}
+
+.cc-atlas-spend.is-warning {
+  color: var(--cc-critical-text);
+}
+
+/* An approval card has to read as different from conversation, or it gets
+   scrolled past like another paragraph. */
+.cc-atlas-proposal {
+  margin: 10px 0 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--cc-hairline);
+  border-left: 2px solid var(--cc-text-secondary);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.cc-atlas-proposal-label {
+  color: var(--cc-text-secondary);
+  margin-bottom: 6px;
+}
+
+.cc-atlas-proposal-summary {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--cc-text-body);
+}
+
+.cc-atlas-proposal-meta {
+  margin-top: 5px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--cc-text-faint);
+}
+
+.cc-atlas-proposal-actions {
+  display: flex;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.cc-atlas-reject {
+  opacity: 0.6;
+}
+
+.cc-atlas-reject:hover {
+  opacity: 1;
+}
+
+/* ---------------------- reading like a conversation ------------------ */
+/* Asked for on 20 August 2026: make it feel like talking to Claude.
+   What that means in practice is that the answer is not in a box. Two
+   bubbles facing each other read as a messaging app; a Claude session
+   reads as a document with a short question above each part of it.
+
+   So: what they typed keeps a quiet bubble, because it is an aside. What
+   comes back is plain text on the page, wide and airy, with a rule
+   between turns instead of a container. */
+
+.cc-ai-panel {
+  max-width: 860px;
+}
+
+.cc-ai-transcript {
+  gap: 0;
+}
+
+.cc-ai-turn {
+  max-width: 100%;
+  padding: 18px 0;
+}
+
+.cc-ai-turn + .cc-ai-turn {
+  border-top: 1px solid var(--cc-divider);
+}
+
+/* Their own line: right-aligned, contained, and deliberately narrower than
+   the answer — a question is shorter than what it earns. */
+.cc-ai-turn--me {
+  align-self: stretch;
+  align-items: flex-end;
+  max-width: 100%;
+}
+
+.cc-ai-turn--me .cc-ai-bubble {
+  max-width: 72%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  background: var(--cc-inset);
+  border: 1px solid var(--cc-inset-border);
+}
+
+/* The answer is the page, not an object on it. */
+.cc-ai-turn--ai .cc-ai-bubble {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--cc-text-headline);
+  max-width: 68ch;
+}
+
+.cc-ai-turn--ai .cc-ai-role {
+  margin-bottom: 2px;
+}
+
+.cc-ai-bubble--pending {
+  color: var(--cc-text-faint);
+  letter-spacing: 0.3em;
+}
+
+/* A composer that looks like something you type into, rather than a form
+   control sitting under a transcript. */
+.cc-composer {
+  margin-top: 14px;
+  padding: 6px 6px 6px 16px;
+  border: 1px solid var(--cc-inset-border);
+  border-radius: var(--cc-r-pill);
+  background: var(--cc-inset);
+  transition: border-color 140ms ease;
+}
+
+.cc-composer:focus-within {
+  border-color: var(--cc-hover-border);
+}
+
+.cc-composer-input {
+  font-size: 15px;
+}
+
+/* The head: who is talking on the left, what it has cost and the controls
+   hard right. At the narrower panel width these collided into the middle,
+   with the running total wrapping under the name. */
+.cc-ai-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: nowrap;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--cc-divider);
+}
+
+.cc-ai-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.cc-atlas-spend {
+  white-space: nowrap;
+}
