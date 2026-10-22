@@ -1,0 +1,22 @@
+.cc-update-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 10px 18px;
+  border-radius: var(--cc-r-pill);
+  background: var(--cc-glass-primary);
+  border: 1px solid var(--cc-glass-primary-border);
+  backdrop-filter: blur(var(--cc-glass-primary-blur, 16px));
+  box-shadow: var(--cc-shadow-overlay);
+  max-width: calc(100vw - 48px);
+}
+
+.cc-update-text {
+  font-size: 13px;
+  color: var(--cc-text-body);
+}

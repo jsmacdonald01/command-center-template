@@ -1,0 +1,26 @@
+/* The single scroll container. Everything is one page — sections are
+   content regions, not routes. */
+.cc-scroll {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+.cc-placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--cc-text-faint);
+}
+
+.cc-placeholder-note {
+  font-family: var(--cc-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cc-text-muted);
+}

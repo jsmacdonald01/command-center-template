@@ -1,0 +1,271 @@
+/* ------------------------------ the grid ------------------------------
+   A page is one screen tall; its grid takes whatever height is left under
+   the title, and every cell holds one box that fills it and scrolls its
+   own contents. Sizes come from the config file — see Page.jsx. */
+
+.cc-page-grid {
+  display: grid;
+  gap: var(--cc-card-gap);
+  flex: 1 1 0;
+  min-height: 0;
+  /* A box that does not fit where it falls in the list moves into the
+     first gap it does fit, instead of leaving a hole. */
+  grid-auto-flow: row dense;
+  /* If boxes need more rows than the page set, the extra rows share the
+     height too, so the page still fits one screen. */
+  grid-auto-rows: minmax(0, 1fr);
+}
+
+.cc-page-cell {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.cc-page-cell > .cc-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* Narrow windows stack every box in one column, each a comfortable height. */
+@media (max-width: 1000px) {
+  .cc-page-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: none !important;
+    grid-auto-rows: minmax(260px, auto);
+  }
+  .cc-page-cell {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+}
+
+/* ------------------------------- boxes -------------------------------- */
+
+.cc-w {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.cc-w-head-side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cc-w-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 44px;
+  overflow-y: auto;
+}
+
+.cc-w-row {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  min-width: 0;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cc-w-row:last-child {
+  border-bottom: none;
+}
+
+.cc-w-row .cc-check {
+  position: relative;
+  top: 2px;
+}
+
+.cc-w-text,
+.cc-w-main {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--cc-text-body);
+}
+
+.cc-w-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cc-w-text .cc-editable,
+.cc-w-main .cc-editable {
+  white-space: normal;
+  text-align: left;
+}
+
+/* Done items stay readable but recede. */
+.cc-w-row.is-done .cc-w-text {
+  color: var(--cc-text-faint);
+  text-decoration: line-through;
+}
+
+.cc-w-row .cc-row-remove {
+  opacity: 0;
+}
+
+.cc-w-row:hover .cc-row-remove {
+  opacity: 1;
+}
+
+/* Dragging — the grip appears on hover; a line shows where it will land. */
+.cc-grip {
+  position: relative;
+  top: 3px;
+  flex: none;
+  width: 10px;
+  height: 12px;
+  opacity: 0;
+  transition: opacity var(--cc-fade);
+  background-image: radial-gradient(currentColor 1px, transparent 1px);
+  background-size: 4px 4px;
+  background-position: 0 2px;
+  color: var(--cc-text-faint);
+  cursor: grab;
+}
+
+.cc-w-row:hover .cc-grip {
+  opacity: 1;
+}
+
+.cc-w-row.is-dragging {
+  opacity: 0.4;
+}
+
+.cc-w-row.is-over {
+  box-shadow: inset 0 2px 0 rgba(226, 232, 240, 0.7);
+}
+
+/* Lists: a date column, then the text with its note underneath. */
+.cc-w-date {
+  flex: none;
+  width: 78px;
+  font-size: 11px;
+  color: var(--cc-text-secondary);
+}
+
+.cc-w-date .cc-editable {
+  text-align: left;
+}
+
+/* Money: amounts right-aligned in a column, total in the corner. */
+.cc-w-amount {
+  flex: none;
+  min-width: 80px;
+  text-align: right;
+  font-size: 13px;
+  color: var(--cc-text-body);
+}
+
+.cc-w-total {
+  font-size: 13px;
+  color: var(--cc-bright);
+}
+
+/* Facts: a grid of labelled values; a headline field reads large. */
+.cc-w-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px 20px;
+  margin-top: 6px;
+}
+
+.cc-w-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.cc-w-fact.is-headline {
+  grid-column: 1 / -1;
+}
+
+.cc-w-fact-value {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+}
+
+.cc-w-fact.is-headline .cc-w-fact-value {
+  font-size: 32px;
+  font-weight: 200;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--cc-bright);
+}
+
+.cc-w-fact-value .cc-editable {
+  text-align: left;
+}
+
+/* Notes: the textarea fills the box. */
+.cc-w-notes-area {
+  flex: 1 1 auto;
+  min-height: 80px;
+  width: 100%;
+  resize: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--cc-text-body);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.cc-w-notes-area::placeholder {
+  color: var(--cc-text-faint);
+}
+
+/* Email rows are buttons that open Gmail. */
+.cc-w-mail {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+
+.cc-w-mail-from {
+  font-size: 13px;
+  color: var(--cc-text-body);
+}
+
+.cc-w-mail.is-unread .cc-w-mail-from {
+  font-weight: 500;
+  color: var(--cc-bright);
+}
+
+/* Link tiles in a box. */
+.cc-links--compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+  gap: 6px;
+  margin-top: 8px;
+}
+
+/* Instructions inside an empty box. Shown only while the box is empty, so
+   they vanish on their own once there is something in it — nobody has to
+   delete them. Quiet enough not to read as content. */
+.cc-hint {
+  padding: 8px 2px;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--cc-text-faint);
+  max-width: 46ch;
+}

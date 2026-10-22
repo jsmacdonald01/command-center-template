@@ -1,0 +1,304 @@
+/* Shared primitives used across sections: pills, dots, dividers,
+   checkboxes, chips, and the widget shell. */
+
+.cc-divider {
+  height: 1px;
+  background: var(--cc-divider);
+  border: none;
+  margin: 0;
+  flex: none;
+}
+
+/* ------------------------------ pills ------------------------------ */
+
+.cc-pill {
+  align-self: flex-start;
+  padding: 9px 18px;
+  border-radius: var(--cc-r-pill);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-family: var(--cc-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cc-text-body);
+  transition: background var(--cc-fade), border-color var(--cc-fade);
+  white-space: nowrap;
+}
+
+.cc-pill:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cc-pill:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.cc-pill--tiny {
+  padding: 5px 11px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+}
+
+.cc-pill--solid {
+  background: rgba(232, 236, 241, 0.92);
+  border-color: transparent;
+  color: var(--cc-panel-ink);
+}
+
+.cc-pill--solid:hover:not(:disabled) {
+  background: #fff;
+}
+
+/* ------------------------------ dots ------------------------------- */
+
+.cc-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--cc-r-pill);
+  background: var(--cc-text-faint);
+  flex: none;
+}
+
+.cc-dot.is-good { background: var(--cc-steady); }
+.cc-dot.is-idle { background: var(--cc-silver); }
+.cc-dot.is-critical {
+  background: #E2606A;
+  box-shadow: 0 0 10px rgba(226, 96, 106, 0.7);
+}
+
+/* ---------------------------- checkboxes --------------------------- */
+
+.cc-check {
+  width: 15px;
+  height: 15px;
+  border-radius: var(--cc-r-check);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  flex: none;
+  position: relative;
+  transition: background var(--cc-fade), border-color var(--cc-fade);
+}
+
+.cc-check.is-checked {
+  background: rgba(226, 232, 240, 0.85);
+  border-color: transparent;
+}
+
+.cc-check.is-checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid var(--cc-panel-ink);
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(42deg);
+}
+
+.cc-check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  padding: 3px 0;
+  width: 100%;
+}
+
+.cc-check-row.is-done {
+  opacity: 0.45;
+}
+
+.cc-check-row.is-done .cc-band-text {
+  text-decoration: line-through;
+}
+
+/* ------------------------------ chips ------------------------------ */
+
+.cc-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: var(--cc-r-chip);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--cc-text-secondary);
+  transition: background var(--cc-fade), border-color var(--cc-fade);
+}
+
+button.cc-chip:hover {
+  background: var(--cc-hover-fill);
+  border-color: var(--cc-hover-border);
+  color: var(--cc-text-body);
+}
+
+/* ----------------------------- widgets ----------------------------- */
+
+.cc-widget-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cc-widget-empty {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--cc-text-faint);
+}
+
+/* --------------------------- range pills --------------------------- */
+
+.cc-range {
+  display: flex;
+  gap: 4px;
+}
+
+.cc-range-pill {
+  padding: 4px 8px;
+  border-radius: 7px;
+  font-family: var(--cc-mono);
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--cc-cloud);
+  opacity: 0.42;
+  transition: background var(--cc-fade), opacity var(--cc-fade);
+}
+
+.cc-range-pill:hover { opacity: 0.7; }
+
+.cc-range-pill.is-active {
+  background: rgba(255, 255, 255, 0.12);
+  opacity: 1;
+}
+
+/* ------------------------- generic rows ---------------------------- */
+
+.cc-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cc-row:last-child { border-bottom: none; }
+
+/* Long names must not push the amount out of the row. */
+.cc-row-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cc-row-value {
+  font-family: var(--cc-mono);
+  font-size: 13px;
+  color: var(--cc-text-body);
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+
+.cc-row-status {
+  width: 70px;
+  text-align: right;
+  font-family: var(--cc-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cc-text-faint);
+  flex: none;
+}
+
+.cc-row-status.is-manual { color: var(--cc-critical-text); }
+
+/* --------------------------- stat blocks --------------------------- */
+
+.cc-statblock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cc-statblock-label {
+  font-family: var(--cc-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cc-text-faint);
+}
+
+.cc-statblock-value {
+  font-weight: 200;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  color: var(--cc-bright);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------- overlays ----------------------------- *
+   Shared by the AI panel and the markets chart. Contents sit at the
+   bottom centre so the environment stays visible above them.          */
+
+.cc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: clamp(20px, 4vh, 56px);
+  background: rgba(8, 10, 14, 0.55);
+  backdrop-filter: blur(16px);
+}
+
+.cc-overlay-panel {
+  width: 100%;
+  max-width: 940px;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px;
+  border-radius: var(--cc-r-overlay);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.028));
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: var(--cc-shadow-overlay);
+  animation: cc-rise 400ms ease;
+}
+
+.cc-overlay-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* ---------------------------- progress ----------------------------- */
+
+.cc-progress {
+  height: 3px;
+  border-radius: var(--cc-r-pill);
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.cc-progress-fill {
+  height: 100%;
+  border-radius: var(--cc-r-pill);
+  background: linear-gradient(90deg, rgba(226, 232, 240, 0.55), rgba(255, 255, 255, 0.9));
+}
+
+.cc-progress-fill.is-dim {
+  background: rgba(226, 232, 240, 0.4);
+}

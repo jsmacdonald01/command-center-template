@@ -1,0 +1,45 @@
+.cc-rail {
+  position: fixed;
+  right: clamp(14px, 1.6vw, 26px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-end;
+}
+
+.cc-rail-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  height: 14px;
+  background: none;
+}
+
+.cc-rail-tick {
+  display: block;
+  height: 1px;
+  width: 14px;
+  background: currentColor;
+  color: var(--cc-cloud);
+  opacity: 0.28;
+  transition: width var(--cc-fade), opacity var(--cc-fade);
+}
+
+.cc-rail-item:hover .cc-rail-tick {
+  opacity: 0.6;
+}
+
+.cc-rail-item.is-active .cc-rail-tick {
+  width: 26px;
+  opacity: 1;
+}
+
+@media (max-width: 720px) {
+  .cc-rail {
+    display: none;
+  }
+}

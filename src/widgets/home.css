@@ -1,0 +1,521 @@
+/* ---------------------------- home head --------------------------- */
+/* Mark, greeting, and the two ways to reach Claude, all in one row. */
+
+.cc-home-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cc-home-mark {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.cc-home-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cc-home-greeting {
+  margin: 0;
+  font-weight: 200;
+  font-size: clamp(20px, 1.9vw, 26px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--cc-bright);
+}
+
+.cc-home-sub {
+  margin: 0;
+  color: var(--cc-text-faint);
+}
+
+/* --------------------------- home grid ---------------------------- */
+
+/* Absorbs the leftover height so the home page is always exactly one
+   screen; the two panels scroll internally rather than growing. */
+/* grid-auto-rows:1fr, not just stretch — with an auto row the track
+   collapses toward the shortest content and a panel with less in it ends
+   up visibly shorter than its neighbours. */
+.cc-home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: var(--cc-card-gap);
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* height:100% rather than relying on stretch — a panel whose contents
+   are shorter than the row was sizing to its contents and ending up
+   visibly shorter than its neighbours. */
+.cc-home-grid > * {
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cc-widget-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--cc-card-gap);
+  align-items: stretch;
+}
+
+@media (max-width: 1240px) {
+  .cc-home-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  .cc-home-grid,
+  .cc-widget-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------------------------- coursework -------------------------- */
+
+.cc-coursework {
+  min-height: 0;
+}
+
+.cc-coursework-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.cc-due-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  text-align: left;
+  min-width: 0;
+  padding: 2px 0;
+  transition: opacity var(--cc-fade);
+}
+
+.cc-due-when {
+  width: 58px;
+  flex: none;
+  font-size: 11px;
+  color: var(--cc-text-faint);
+}
+
+.cc-due-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Due today or tomorrow is the one thing here worth red. */
+.cc-due-row.is-now .cc-due-when { color: var(--cc-critical-text); }
+.cc-due-row.is-now .cc-due-title { color: var(--cc-bright); }
+.cc-due-row.is-soon .cc-due-when { color: var(--cc-text-secondary); }
+.cc-due-row.is-quiet .cc-due-title { color: var(--cc-text-muted); }
+
+.cc-due-row.is-done { opacity: 0.42; }
+.cc-due-row.is-done .cc-due-title { text-decoration: line-through; }
+.cc-due-row.is-done .cc-due-when { color: var(--cc-text-faint); }
+
+/* ----------------------------- to do ------------------------------ */
+
+.cc-todo {
+  min-height: 0;
+}
+
+.cc-todo-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* A dead Google sign-in. Red is reserved for genuine deadlines and this
+   is not one — it is a broken connection, so it reads as a note rather
+   than an alarm. Loud enough not to be scrolled past, quiet enough not to
+   compete with a real due date. */
+.cc-todo-expired {
+  flex: none;
+  margin-bottom: 10px;
+  padding: 8px 11px;
+  border: 1px solid var(--cc-dormant-border);
+  border-radius: var(--cc-r-chip);
+  background: var(--cc-inset);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--cc-text-secondary);
+}
+
+.cc-todo-day {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cc-todo-daylabel {
+  color: var(--cc-text-faint);
+}
+
+.cc-todo-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 2px 0;
+  transition: opacity var(--cc-fade);
+}
+
+.cc-todo-row .cc-check {
+  margin-top: 3px;
+}
+
+.cc-todo-body-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Notes typed into the calendar entry. Wraps rather than truncating —
+   the point is to read what the work actually is. */
+.cc-todo-note {
+  font-size: 11.5px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--cc-text-muted);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.cc-todo-row.is-done .cc-todo-note {
+  text-decoration: line-through;
+}
+
+/* Google returns a full postal address here, so this is often the longest
+   line in the row. Fainter than the note — it answers a different
+   question — and it wraps, because half a street address is no use. */
+.cc-todo-place {
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--cc-text-faint);
+  overflow-wrap: anywhere;
+}
+
+.cc-todo-row.is-done .cc-todo-place {
+  text-decoration: line-through;
+}
+
+.cc-todo-row.is-done {
+  opacity: 0.45;
+}
+
+.cc-todo-row.is-done .cc-todo-text {
+  text-decoration: line-through;
+}
+
+.cc-todo-time {
+  width: 66px;
+  flex: none;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--cc-text-faint);
+}
+
+.cc-todo-text {
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.35;
+  color: var(--cc-text-body);
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------- weather ----------------------------- */
+
+.cc-weather-now {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cc-weather-temp {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.cc-weather-conditions {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+  min-width: 0;
+}
+
+.cc-weather-sub {
+  font-size: 11px;
+  color: var(--cc-text-faint);
+}
+
+/* The five-day row fills the rest of the widget. */
+.cc-weather-days {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  flex: 1 1 auto;
+  align-content: center;
+  padding-top: 2px;
+  border-top: 1px solid var(--cc-divider);
+}
+
+.cc-weather-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.cc-weather-day-label {
+  font-family: var(--cc-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--cc-text-faint);
+}
+
+.cc-weather-day-high {
+  font-family: var(--cc-mono);
+  font-size: 12px;
+  color: var(--cc-text-body);
+}
+
+.cc-weather-day-low {
+  font-family: var(--cc-mono);
+  font-size: 10px;
+  color: var(--cc-text-faint);
+}
+
+.cc-weather-note {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--cc-text-muted);
+}
+
+/* ---------------------------- markets ----------------------------- */
+
+.cc-sparkline {
+  display: block;
+  width: 100%;
+  line-height: 0;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background var(--cc-fade);
+}
+
+.cc-sparkline:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cc-market-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.cc-market-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.cc-market-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--cc-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cc-market-value {
+  font-size: 12px;
+  color: var(--cc-text-body);
+  flex: none;
+}
+
+.cc-market-change {
+  font-size: 11px;
+  flex: none;
+  width: 58px;
+  text-align: right;
+}
+
+.cc-market-change.is-up { color: var(--cc-steady); }
+.cc-market-change.is-down { color: var(--cc-critical-text); }
+
+/* -------------------------- top stories --------------------------- */
+
+.cc-news-items {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.cc-news-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  text-align: left;
+  width: 100%;
+  min-width: 0;
+}
+
+.cc-news-source {
+  flex: none;
+  width: 30px;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--cc-text-faint);
+}
+
+.cc-news-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--cc-text-body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cc-news-item:hover .cc-news-title {
+  color: var(--cc-bright);
+}
+
+/* ---------------------------- band bits --------------------------- */
+
+.cc-band-empty {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--cc-text-faint);
+}
+
+/* Claude Desktop and Email stack on the right of the greeting row. */
+.cc-home-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex: none;
+}
+
+/* The mark opens the agent. It is large enough now to read as an
+   invitation without a caption telling anyone so. */
+.cc-home-agent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.cc-home-agent-caption {
+  color: var(--cc-text-faint);
+  font-size: 9px;
+  white-space: nowrap;
+  transition: color 140ms ease;
+}
+
+.cc-home-agent:hover .cc-home-agent-caption {
+  color: var(--cc-text-secondary);
+}
+
+/* The greeting stands on its own now. "Command Center" sat under it and
+   said what the app was to someone already looking at it, so with the
+   larger mark beside it the line simply grew instead. */
+.cc-home-greeting {
+  font-size: clamp(26px, 2.6vw, 38px);
+  letter-spacing: -0.03em;
+}
+
+/* "opens" — the date a thing unlocks rather than the date it is owed.
+   Quiet, because it is an invitation and not a deadline, and it never
+   takes the red that a real due date can. */
+.cc-due-kind {
+  flex: none;
+  margin-left: 8px;
+  font-family: var(--cc-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cc-text-faint);
+}
+
+/* The class a piece of work belongs to. Every row on this panel now has
+   one, and with three courses running at once "Chapter 1 Quiz" alone does
+   not say whose. Fixed width so the titles still line up. */
+.cc-due-course {
+  flex: none;
+  width: 66px;
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  color: var(--cc-text-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The name in the greeting is typed right on the page; it reads as part
+   of the sentence until it is clicked. */
+.cc-home-name .cc-editable {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+/* Workload: a quiet link down to the Business page under the jobs. */
+.cc-workload-more {
+  align-self: flex-start;
+  margin-top: 6px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--cc-text-faint);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.cc-workload-more:hover {
+  color: var(--cc-text-body);
+}

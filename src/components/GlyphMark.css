@@ -1,0 +1,13 @@
+/* Sits with the fetched favicons, not louder than them. Those are
+   desaturated until the panel is hovered; these have no colour to lose,
+   so they carry the same quiet weight and brighten on the same gesture. */
+
+.cc-glyph-mark {
+  flex: none;
+  color: var(--cc-text-secondary);
+  transition: color var(--cc-fade);
+}
+
+.cc-section-header:hover .cc-glyph-mark {
+  color: var(--cc-text-secondary);
+}

@@ -1,0 +1,663 @@
+/* Quick links to the real institutions. These open the actual site in
+   the browser — Command Center never sees or stores any credentials. */
+.cc-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.cc-link-tile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: var(--cc-r-chip);
+  transition: background var(--cc-fade), border-color var(--cc-fade);
+  min-width: 0;
+}
+
+.cc-link-tile:hover {
+  background: var(--cc-hover-fill);
+  border-color: var(--cc-hover-border);
+}
+
+.cc-link-monogram {
+  font-size: 12px;
+  color: var(--cc-text-faint);
+  flex: none;
+  width: 18px;
+  text-align: center;
+}
+
+.cc-link-icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  object-fit: contain;
+  border-radius: 3px;
+}
+
+.cc-link-name {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ------------------------------ grid ------------------------------- */
+
+.cc-finance-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--cc-card-gap);
+  align-items: start;
+}
+
+@media (max-width: 1000px) {
+  .cc-finance-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.cc-finance-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cc-card-gap);
+  min-width: 0;
+}
+
+.cc-head-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ------------------------------ goals ------------------------------ */
+
+.cc-goal {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+}
+
+.cc-goal-index {
+  width: 12px;
+  flex: none;
+  font-size: 11px;
+  color: var(--cc-text-faint);
+}
+
+.cc-goal-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+}
+
+.cc-bill-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The remove control only surfaces on hover — the read view stays calm. */
+.cc-row-remove {
+  width: 18px;
+  flex: none;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--cc-text-faint);
+  opacity: 0;
+  transition: opacity var(--cc-fade), color var(--cc-fade);
+}
+
+.cc-row:hover .cc-row-remove {
+  opacity: 1;
+}
+
+.cc-row-remove:hover {
+  color: var(--cc-critical-text);
+}
+
+button.cc-row-status {
+  transition: color var(--cc-fade);
+}
+
+button.cc-row-status:hover {
+  color: var(--cc-text-body);
+}
+
+/* Height-bounded: the two columns fill the page and scroll internally. */
+.cc-finance-grid {
+  flex: 1 1 auto;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.cc-finance-grid > .cc-panel {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* The left column holds two panels stacked. Bills takes the space that
+   is left after the company block, which is sized by its contents. */
+.cc-finance-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cc-card-gap);
+  min-height: 0;
+  min-width: 0;
+}
+
+.cc-finance-main > .cc-bills-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.cc-finance-main > .cc-llc {
+  flex: 0 0 auto;
+}
+
+/* Goals, income and savings take exactly the height their contents
+   need and sit at even gaps. Forcing equal thirds made savings scroll
+   while income sat half empty. */
+.cc-finance-side > .cc-panel {
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+/* --------------------------- bill groups --------------------------- */
+
+.cc-bill-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.cc-group-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--cc-divider);
+  margin-bottom: 2px;
+}
+
+/* Whole row drags. The grip only marks where to grab — the row itself
+   is draggable, so an imprecise grab still works. */
+.cc-row--drag {
+  cursor: grab;
+  border-radius: 6px;
+  transition: background var(--cc-fade), opacity var(--cc-fade);
+}
+
+.cc-row--drag:active {
+  cursor: grabbing;
+}
+
+.cc-grip {
+  position: relative;
+  flex: none;
+  width: 10px;
+  height: 12px;
+  opacity: 0;
+  transition: opacity var(--cc-fade);
+  background-image: radial-gradient(currentColor 1px, transparent 1px);
+  background-size: 4px 4px;
+  background-position: 0 2px;
+  color: var(--cc-text-faint);
+}
+
+.cc-row--drag:hover .cc-grip {
+  opacity: 1;
+}
+
+.cc-row--drag.is-dragging {
+  opacity: 0.4;
+}
+
+/* Where the row will land. */
+.cc-row--drag.is-over {
+  box-shadow: inset 0 2px 0 rgba(226, 232, 240, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Groups keep a minimum height so an empty one is still a drop target. */
+.cc-bill-group {
+  min-height: 56px;
+}
+
+
+/* --------------------------- the company ---------------------------- */
+/* Under the bills, not beside them: a business is paperwork
+   and intentions, not money moving. It shares the left column so the
+   three money panels on the right keep their height. */
+
+.cc-llc {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cc-llc-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Empty by design until there is a logo. Dashed, because the design
+   system already uses that to mean "nothing here yet, and that is fine". */
+.cc-llc-logo {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px dashed var(--cc-dormant-border);
+  border-radius: var(--cc-r-chip);
+  background: var(--cc-dormant-fill);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 120ms ease;
+}
+
+.cc-llc-logo:hover {
+  border-color: var(--cc-text-faint);
+}
+
+.cc-llc-logo.is-set {
+  border-style: solid;
+  border-color: var(--cc-inset-border);
+  background: var(--cc-inset);
+}
+
+.cc-llc-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cc-llc-logo-empty {
+  font-family: var(--cc-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cc-text-faint);
+}
+
+.cc-llc-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cc-llc-ein {
+  font-size: 14px;
+  color: var(--cc-text-body);
+}
+
+.cc-llc-detail {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--cc-text-secondary);
+}
+
+.cc-llc-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--cc-card-gap);
+  min-height: 0;
+}
+
+.cc-llc-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cc-llc-sublabel {
+  color: var(--cc-text-faint);
+}
+
+/* Both lists scroll on their own, so filing a stack of documents cannot
+   push the section past one screen. */
+.cc-llc-docs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 76px;
+  overflow-y: auto;
+}
+
+.cc-llc-idea {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cc-llc-ideatext {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+}
+
+.cc-llc-ideatext .cc-editable {
+  text-align: left;
+  white-space: normal;
+}
+
+.cc-llc-ideatext.is-done {
+  color: var(--cc-text-faint);
+  text-decoration: line-through;
+}
+
+/* Hidden until the row is hovered, and revealed here because
+   `.cc-row-remove` keys its reveal to `.cc-row`, which this is not. */
+.cc-llc-idea .cc-row-remove {
+  opacity: 0;
+}
+
+.cc-llc-idea:hover .cc-row-remove {
+  opacity: 1;
+}
+
+/* Bill groups keep their natural height and let the panel scroll. Without
+   this they shrink as flex children — with the company block underneath
+   taking part of the column, the rows compressed until they overlapped
+   each other on screen while every measurement still read as fine. */
+.cc-bills-panel .cc-bill-group {
+  flex: 0 0 auto;
+}
+
+/* The company sits under both money columns now, so its own contents run
+   across instead of stacking: identity and the numbers on the left, the
+   filings on the right. Goals leaving is what made the room. */
+.cc-llc-row {
+  display: grid;
+  grid-template-columns: auto minmax(120px, 1.1fr) repeat(3, minmax(90px, auto)) minmax(200px, 1.4fr);
+  gap: 10px clamp(14px, 2vw, 28px);
+  align-items: start;
+}
+
+.cc-llc-identity .cc-panel-label {
+  font-size: 11px;
+}
+
+.cc-llc-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cc-llc-value {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The file a fact was read from. Quiet, and clickable — a number they did
+   not type should be one click from the paper that says it. */
+.cc-llc-source {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--cc-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cc-text-faint);
+  text-align: left;
+  cursor: pointer;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cc-llc-source:hover {
+  color: var(--cc-text-secondary);
+}
+
+.cc-llc-docs-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cc-finance-grid + .cc-llc {
+  flex: 0 0 auto;
+  margin-top: var(--cc-card-gap);
+}
+
+@media (max-width: 1000px) {
+  .cc-llc-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* One line: mark, name, three facts, and a count of the filings behind
+   them. The documents still feed this — they are simply not the content.
+   Everything sits on a single row, so the block is as tall as one row. */
+.cc-llc-row {
+  grid-template-columns: auto minmax(120px, 1fr) repeat(3, minmax(88px, auto)) auto;
+  align-items: center;
+  gap: 8px clamp(14px, 2.2vw, 34px);
+}
+
+.cc-llc-filed {
+  justify-self: end;
+}
+
+.cc-llc-filedcount {
+  padding: 3px 10px;
+  border: 1px solid var(--cc-inset-border);
+  border-radius: var(--cc-r-pill);
+  background: transparent;
+  font-family: var(--cc-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cc-text-faint);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.cc-llc-filedcount:hover {
+  color: var(--cc-text-body);
+  border-color: var(--cc-text-faint);
+}
+
+/* In the side column now, under savings, at a third of the width it had
+   across the page. So it stacks: identity on one line, the facts from the
+   paperwork under it, the filing count at the end of that line. */
+.cc-finance-side > .cc-llc {
+  flex: 0 0 auto;
+}
+
+.cc-finance-side .cc-llc-row {
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "logo identity"
+    "facts facts";
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.cc-finance-side .cc-llc-logo { grid-area: logo; width: 34px; height: 34px; }
+.cc-finance-side .cc-llc-identity { grid-area: identity; }
+
+/* The three facts and the document count share one line under the name. */
+.cc-finance-side .cc-llc-fact:nth-of-type(1) { grid-area: facts; }
+
+.cc-finance-side .cc-llc-row > .cc-llc-fact,
+.cc-finance-side .cc-llc-row > .cc-llc-filed {
+  grid-area: facts;
+}
+
+.cc-finance-side .cc-llc-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 16px;
+}
+
+.cc-finance-side .cc-llc-identity {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cc-finance-side .cc-llc-fact {
+  flex: 0 0 auto;
+}
+
+.cc-finance-side .cc-llc-value {
+  font-size: 13px;
+}
+
+.cc-finance-side .cc-llc-filed {
+  margin-left: auto;
+}
+
+/* Files, and the quieter + that files a new one. */
+.cc-llc-filed {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cc-llc-filednum {
+  margin-left: 6px;
+  opacity: 0.6;
+}
+
+.cc-llc-filedcount:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.cc-llc-fileadd {
+  padding: 0 6px;
+  border: none;
+  background: none;
+  color: var(--cc-text-faint);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.cc-llc-fileadd:hover {
+  color: var(--cc-text-body);
+}
+
+/* With the mark in it the tile is no longer an empty slot, so it loses the
+   dashed "nothing here yet" border. */
+.cc-llc-logo:not(.is-set) {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+/* Shared with other pages in the original app; kept here with the rows that use them. */
+.cc-count {
+  font-size: 11px;
+  color: var(--cc-text-faint);
+  font-variant-numeric: tabular-nums;
+}
+.cc-row--tight {
+  padding: 6px 0;
+}
+
+/* ------------------------- template additions ------------------------- */
+
+/* The business mark: the first letter of the business name, in a ring. */
+.cc-business-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--cc-inset-border);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--cc-bright);
+}
+
+/* Quick links you add on the page. A remove × appears on hover; the last
+   tile is "+ Add link", which opens a small form in its place. */
+.cc-links--editable {
+  align-items: stretch;
+  /* auto-fill, not auto-fit: with only one or two links the tiles keep
+     their size instead of stretching across the page. */
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+
+.cc-link-wrap {
+  position: relative;
+  display: flex;
+}
+
+.cc-link-wrap > .cc-link-tile {
+  flex: 1 1 auto;
+}
+
+.cc-link-remove {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  border: none;
+  background: transparent;
+  color: var(--cc-text-faint);
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--cc-fade);
+}
+
+.cc-link-wrap:hover .cc-link-remove {
+  opacity: 1;
+}
+
+.cc-link-add {
+  border-style: dashed;
+  justify-content: center;
+  /* Two tiles wide, so the whole label fits. */
+  grid-column: span 2;
+}
+
+.cc-link-form {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  grid-column: span 3;
+}
+
+/* Income and savings share the column beside the bills in equal halves,
+   each scrolling its own list. */
+.cc-finance-side > .cc-panel {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+}

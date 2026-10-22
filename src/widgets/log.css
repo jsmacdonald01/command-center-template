@@ -1,0 +1,75 @@
+/* The log and the library under it split the height left after Settings
+   evenly, each scrolling its own contents. `1 1 0` so the split comes from
+   the screen, not from how long either list happens to be. */
+.cc-history {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  gap: 0;
+}
+
+.cc-section--fit .cc-section-inner > .cc-lib {
+  flex: 1 1 0;
+}
+
+.cc-history-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cc-history-day {
+  color: var(--cc-text-faint);
+  padding: 20px 0 10px;
+}
+
+.cc-history-group:first-child .cc-history-day {
+  padding-top: 0;
+}
+
+.cc-history-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 7px 0;
+  min-width: 0;
+}
+
+.cc-history-time {
+  width: 52px;
+  flex: none;
+  font-size: 11px;
+  color: var(--cc-text-faint);
+}
+
+.cc-history-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--cc-text-body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cc-history-entity {
+  color: var(--cc-text-faint);
+}
+
+.cc-history-tag {
+  flex: none;
+  font-family: var(--cc-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cc-text-faint);
+}
+
+.cc-history-tag.is-alert {
+  color: var(--cc-critical-text);
+}
+
+.cc-history-tag.is-ai {
+  color: var(--cc-text-secondary);
+}

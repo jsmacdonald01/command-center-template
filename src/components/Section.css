@@ -1,0 +1,64 @@
+.cc-section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--cc-section-pad-y) var(--cc-section-pad-x) var(--cc-section-pad-bottom);
+}
+
+.cc-section-inner {
+  width: 100%;
+  max-width: var(--cc-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cc-section-gap);
+}
+
+/* Height-bounded section: the inner column fills the screen and any
+   child marked flexible absorbs the leftover space, scrolling its own
+   contents instead of making the page longer. */
+.cc-section--fit {
+  height: 100vh;
+  justify-content: flex-start;
+}
+
+.cc-section--fit .cc-section-inner {
+  height: 100%;
+  min-height: 0;
+}
+
+.cc-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(20px, 3vw, 48px);
+  flex-wrap: wrap;
+}
+
+.cc-section-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* The title and, when a section is a window onto somewhere real, its
+   mark. Nudged down by hand: the title is large, and a logo centred
+   against it reads as sitting too high. */
+.cc-section-titleline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.cc-section-titleline .cc-source-mark {
+  position: relative;
+  top: 2px;
+}
+
+.cc-section-eyebrow {
+  color: var(--cc-text-faint);
+}

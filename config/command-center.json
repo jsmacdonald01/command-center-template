@@ -1,0 +1,73 @@
+{
+  "owner": "",
+  "about": [],
+  "pages": [
+    {
+      "id": "home",
+      "title": "Home",
+      "layout": "home"
+    },
+    {
+      "id": "finance",
+      "title": "Finance",
+      "layout": "finance",
+      "widgets": [
+        { "id": "bills", "type": "money", "title": "Bills" },
+        { "id": "income", "type": "money", "title": "Income" },
+        { "id": "savings", "type": "money", "title": "Savings & investments" },
+        { "id": "finance-links", "type": "links", "title": "Financial links" }
+      ]
+    },
+    {
+      "id": "business",
+      "title": "Business",
+      "layout": "business",
+      "widgets": [
+        {
+          "id": "business",
+          "type": "facts",
+          "title": "Company",
+          "fields": [
+            { "key": "name", "label": "Business name" },
+            { "key": "type", "label": "Type" },
+            { "key": "state", "label": "State issued" },
+            { "key": "ein", "label": "EIN" }
+          ]
+        },
+        { "id": "jobs", "type": "checklist", "title": "Jobs" },
+        { "id": "clients", "type": "list", "title": "Clients", "private": true },
+        { "id": "leads", "type": "list", "title": "Leads & quotes" },
+        { "id": "invoices", "type": "money", "title": "Unpaid invoices" },
+        { "id": "expenses", "type": "money", "title": "Expenses this month" },
+        { "id": "business-docs", "type": "documents", "title": "Contracts & paperwork" }
+      ]
+    },
+    {
+      "id": "workshop",
+      "title": "Workshop",
+      "glyph": "hammer",
+      "columns": 5,
+      "rows": 2,
+      "widgets": [
+        {
+          "id": "ideas", "type": "checklist", "title": "Ideas", "colSpan": 2,
+          "placeholder": "An idea",
+          "hint": "Ideas to improve this app for you — a new page, a box you wish you had, something to change. Click Add to write one down."
+        },
+        {
+          "id": "vault", "type": "vault", "title": "Notebook", "colSpan": 3, "rowSpan": 2
+        },
+        {
+          "id": "goals", "type": "list", "title": "Long-term goals", "colSpan": 2,
+          "placeholder": "A goal",
+          "hint": "Goals for your life, your money or your business. Add a target date if you have one, and a note on the next step."
+        }
+      ]
+    },
+    {
+      "id": "log",
+      "title": "Log",
+      "layout": "log"
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+.cc-calendar {
+  gap: 12px;
+  min-height: 0;
+}
+
+/* The label doubles as the way out to the real Google Calendar. */
+.cc-cal-open {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--cc-text-faint);
+  transition: color var(--cc-fade);
+}
+
+.cc-cal-open:hover {
+  color: var(--cc-text-body);
+}
+
+.cc-cal-open-arrow {
+  font-size: 11px;
+  line-height: 1;
+}
+
+.cc-cal-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cc-cal-arrow {
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  font-size: 15px;
+  color: var(--cc-text-faint);
+  border-radius: 5px;
+  transition: color var(--cc-fade), background var(--cc-fade);
+}
+
+.cc-cal-arrow:hover {
+  color: var(--cc-text-body);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cc-cal-month {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cc-text-secondary);
+  min-width: 118px;
+  text-align: center;
+}
+
+/* ------------------------------ grid ------------------------------ */
+/* The grid fills the panel — this widget is only the calendar. */
+
+.cc-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto repeat(6, minmax(0, 1fr));
+  gap: 2px;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.cc-cal-dow {
+  text-align: center;
+  padding-bottom: 4px;
+  font-family: var(--cc-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--cc-text-faint);
+}
+
+.cc-cal-day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 0;
+  border-radius: 7px;
+}
+
+.cc-cal-daynum {
+  font-family: var(--cc-mono);
+  font-size: 13px;
+  color: var(--cc-text-secondary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.cc-cal-day.is-outside .cc-cal-daynum {
+  color: var(--cc-text-faint);
+  opacity: 0.5;
+}
+
+.cc-cal-day.is-today {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.cc-cal-day.is-today .cc-cal-daynum {
+  color: var(--cc-bright);
+}
+
+.cc-cal-dots {
+  display: flex;
+  gap: 2px;
+  height: 3px;
+}
+
+.cc-cal-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: var(--cc-r-pill);
+  background: rgba(203, 213, 225, 0.85);
+}
+
+/* ---------------------------- connect ----------------------------- */
+
+.cc-cal-connect {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: auto 0;
+  align-items: flex-start;
+}
+
+.cc-cal-connect-copy {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--cc-text-secondary);
+  text-wrap: pretty;
+}

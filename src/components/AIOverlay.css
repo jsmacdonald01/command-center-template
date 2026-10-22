@@ -1,0 +1,196 @@
+/* Base overlay chrome lives in styles/common.css. */
+
+.cc-ai-panel {
+  min-height: min(560px, 70vh);
+}
+
+.cc-ai-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cc-ai-mode {
+  color: var(--cc-text-secondary);
+}
+
+.cc-ai-head-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ---------------------------- waveform ---------------------------- */
+
+.cc-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 34px;
+  flex: none;
+}
+
+.cc-wave-bar {
+  width: 3px;
+  height: 100%;
+  border-radius: var(--cc-r-pill);
+  background: rgba(226, 232, 240, 0.7);
+  transform: scaleY(0.18);
+  animation: cc-wave 1.15s ease-in-out infinite;
+}
+
+/* --------------------------- transcript --------------------------- */
+
+.cc-ai-transcript {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-right: 4px;
+}
+
+.cc-ai-empty {
+  margin: auto 0;
+  text-align: center;
+  font-weight: 300;
+  font-size: 15px;
+  color: var(--cc-text-faint);
+}
+
+.cc-ai-turn {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 78%;
+}
+
+.cc-ai-turn--me {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.cc-ai-turn--ai {
+  align-self: flex-start;
+}
+
+.cc-ai-role {
+  color: var(--cc-text-faint);
+  font-size: 9px;
+}
+
+.cc-ai-bubble {
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--cc-text-body);
+  white-space: pre-wrap;
+  text-wrap: pretty;
+}
+
+.cc-ai-turn--me .cc-ai-bubble {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.cc-ai-turn--ai .cc-ai-bubble {
+  background: var(--cc-accent-fill);
+}
+
+.cc-ai-bubble--pending {
+  color: var(--cc-text-faint);
+}
+
+.cc-ai-error {
+  align-self: flex-start;
+  max-width: 78%;
+  padding: 14px 18px;
+  border-radius: var(--cc-r-row);
+  background: var(--cc-critical-fill);
+  border: 1px solid var(--cc-critical-border);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--cc-critical-text);
+}
+
+/* ---------------------------- composer ---------------------------- */
+
+.cc-composer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 8px 8px 10px;
+  border-radius: var(--cc-r-pill);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex: none;
+}
+
+.cc-composer-mic {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  transition: background var(--cc-fade);
+}
+
+.cc-composer-mic:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cc-composer-mic.is-listening {
+  background: rgba(226, 232, 240, 0.85);
+  border-color: transparent;
+}
+
+/* A mic drawn from primitives — the product uses no icon set. */
+.cc-composer-mic-glyph {
+  width: 7px;
+  height: 12px;
+  border-radius: var(--cc-r-pill);
+  background: currentColor;
+  position: relative;
+}
+
+.cc-composer-mic-glyph::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 4px;
+  background: currentColor;
+}
+
+.cc-composer-mic.is-listening .cc-composer-mic-glyph {
+  color: var(--cc-panel-ink);
+}
+
+.cc-composer-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font-weight: 300;
+  font-size: 15px;
+  color: var(--cc-text-body);
+  padding: 8px 0;
+}
+
+.cc-composer-input::placeholder {
+  color: var(--cc-text-faint);
+}
+
+.cc-composer .cc-pill {
+  align-self: center;
+}

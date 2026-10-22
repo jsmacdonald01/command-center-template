@@ -1,0 +1,64 @@
+.cc-sphere {
+  position: relative;
+  display: block;
+  flex: none;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 0;
+}
+
+.cc-sphere--full    { width: clamp(96px, 8vw, 120px); height: clamp(96px, 8vw, 120px); }
+.cc-sphere--compact { width: 58px;  height: 58px; }
+.cc-sphere--mini    { width: 26px;  height: 26px; }
+
+.cc-sphere.is-interactive {
+  cursor: pointer;
+  transition: filter var(--cc-fade);
+}
+
+.cc-sphere.is-interactive:hover {
+  filter: brightness(1.18);
+}
+
+.cc-sphere-aura {
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(203, 213, 225, 0.18), transparent 68%);
+  animation: cc-breathe 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.cc-sphere-svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
+}
+
+/* Three rings turning at different rates — the whole mark reads as one
+   slow rotation rather than three separate spinners. */
+.cc-orbit {
+  transform-origin: 50px 50px;
+}
+
+.cc-orbit--a { animation: cc-spin 26s linear infinite; }
+.cc-orbit--b { animation: cc-spin 38s linear infinite; }
+.cc-orbit--c { animation: cc-spin-reverse 32s linear infinite; }
+
+.cc-core-glow {
+  transform-origin: 50px 50px;
+  animation: cc-breathe 7s ease-in-out infinite;
+}
+
+.cc-sphere--mini .cc-sphere-aura {
+  display: none;
+}
+
+.cc-sphere.is-still .cc-sphere-aura,
+.cc-sphere.is-still .cc-orbit,
+.cc-sphere.is-still .cc-core-glow {
+  animation: none;
+}
